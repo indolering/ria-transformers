@@ -58,3 +58,4 @@ Test
 ----
 
     npm install mocha -g
+    npm test
