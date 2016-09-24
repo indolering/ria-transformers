@@ -1,0 +1,52 @@
+{
+  "name": "ria-transfomers",
+  "version": "1.0",
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "test": "mocha ./test"
+  },
+  "repository": "https://github.com/indolering/ria-transformers.git",
+  "main": "transformers.js",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.6.0",
+    "gulp": "^3.9.1",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0"
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "commonjs": true,
+      "es6": true,
+      "mocha": true
+    },
+    "rules": {
+      "eqeqeq": [
+        "warn",
+        "always"
+      ],
+      "strict": [
+        "warn",
+        "global"
+      ],
+      "indent": [
+        "warn",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "semi": [
+        "warn",
+        "always"
+      ]
+    }
+  }
+}
