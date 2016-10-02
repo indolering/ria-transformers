@@ -11,7 +11,9 @@ class Transformer {
       special: /[^a-zA-Z0-9\s-]/ig, //anything that messes up the URL formatting
       ddash: /-{2,}/g, //double dash detection
       dspace: /\s{2,}/g,
-      spaces: /\s+/g
+      spaces: /\s+/g,
+      startDash: /^-/,
+      endDash: /-$/,
     };
   }
 

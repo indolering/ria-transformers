@@ -25,6 +25,8 @@ describe('regex', function () {
     'c c  c  c'.replace(urn.regex.spaces, '').should.equal('cccc');
     'bull'.replace(urn.regex.special, '').should.equal('bull');
     '  '.replace(urn.regex.dspace, '').should.equal('');
+    '-I-'.replace(urn.regex.startDash, '').should.equal('I-');
+    '-I-'.replace(urn.regex.endDash, '').should.equal('-I');
   });
 });
 
