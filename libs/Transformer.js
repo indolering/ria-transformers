@@ -56,10 +56,10 @@ class Transformer {
       return this._string(input);
     } else if (typeof input === 'number') {
       return this._string(input.toString());
-    } else if (Array.isArray(input)) {
-      return input.map(i => {
-        return this.clean(i, fieldName, overwrite);
-      });
+    // } else if (Array.isArray(input)) {
+    //   return input.map(i => {
+    //     return this.clean(i, fieldName, overwrite);
+    //   });
     } else if (typeof input === 'object') {
       return this._obj(input, fieldName, overwrite);
     } else if (!input) { //or throw
