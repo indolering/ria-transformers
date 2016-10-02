@@ -7,7 +7,6 @@ class URN extends Transformer{
     name = name.toLowerCase().trim();
 
     // '&' -> ' and '
-    name = name.replace(this.regex.h_amp, ' & $3'); //replace all HTML encoded ampersands
     name = name.replace(this.regex.amp, ' and '); //replace all ampersands with ' and '
 
     //get rid of acronyms

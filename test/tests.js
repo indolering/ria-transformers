@@ -3,15 +3,16 @@
 let should = require('should');
 let t = require('../transformers');
 let urn = t.urn;
+let cn = t.cn;
 
-function genDoc(fields){
+function genDoc(fields) {
   let doc = {
     id: '123456',
     business_name: 'Bull & Bear LLC.'
   };
 
-  if(fields){
-    for(var f in fields){
+  if (fields) {
+    for (var f in fields) {
       doc[f] = fields[f];
     }
   }
@@ -19,45 +20,48 @@ function genDoc(fields){
   return doc;
 }
 
-describe('urn', function () {
+describe('regex', function () {
+  it('should select all spaces', function () {
+    'c c  c  c'.replace(urn.regex.spaces, '').should.equal('cccc');
+    'bull'.replace(urn.regex.special, '').should.equal('bull');
+    '  '.replace(urn.regex.dspace, '').should.equal('');
+  });
+});
 
-  describe('regex', function () {
-    it('should select all spaces', function () {
-      'c c  c  c'.replace(urn.regex.spaces, '').should.equal('cccc');
-      'bull'.replace(urn.regex.special, '').should.equal('bull');
-    });
+
+describe('trans', function () {
+
+  let doc = null;
+
+  beforeEach(()=> {
+    doc = genDoc();
   });
 
+  it('CleanNames should clean names!', function () {
+    cn.trans('BULL &amp; BEAR INC').should.equal('Bull & Bear Inc');
+  });
 
-  describe('trans', function () {
+  it('should clean strings', function () {
+    urn.trans('Bull & Bear LLC.').should.equal('bull-and-bear');
+    urn.trans('co.name.hack').should.equal('co-name-hack');
+    urn.trans('name inc.').should.equal('name');
+    urn.trans('name co.').should.equal('name');
 
-    let doc = null;
+  });
 
-    beforeEach(()=>{
-      doc = genDoc();
-    });
+  it('should transform object', function () {
+    urn.trans(doc);
 
-    it('should clean strings', function () {
-      urn.trans('Bull & Bear LLC.').should.equal('bull-and-bear');
-      urn.trans('co.name.hack').should.equal('co-name-hack');
-      urn.trans('name inc.').should.equal('name');
-      urn.trans('name co.').should.equal('name');
-    });
+    doc.should.have.key('urn');
+    doc.urn.should.equal('bull-and-bear-F123456');
+  });
 
-    it('should transform object', function () {
-      urn.trans(doc);
+  it('should not transform object', function () {
 
-      doc.should.have.key('urn');
-      doc.urn.should.equal('bull-and-bear-F123456');
-    });
+    doc.urn = 'exists';
 
-    it('should not transform object', function () {
+    urn.trans(doc);
 
-      doc.urn = 'exists';
-
-      urn.trans(doc);
-
-      doc.urn.should.equal('exists');
-    });
+    doc.urn.should.equal('exists');
   });
 });

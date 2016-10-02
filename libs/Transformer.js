@@ -4,13 +4,13 @@ class Transformer {
 
   constructor() {
     this.regex = {
-      h_amp: /&amp;|&amp(\b|\W)/ig, //regex for html encoded ampersand (including slightly broken ones) https://www.debuggex.com/r/t6oZj6UeAfl4Wei5
       amp: /&(?![a-zA-Z0-9]+;)/ig, //regex that tries to avoid HTML encoded special chars https://www.debuggex.com/r/RZ_U47xC54Mr2AIm
       co: /(\b)(co\.*$)/i, //(wordbreak)(`co` followed by 0+ periods at end of the string) https://www.debuggex.com/r/9qo3gSnjd7ouz-Qm
       inc: /(\b)(inc\.*$)/i, //(wordbreak)(`inc` followed by 0+ periods at end of the string) https://www.debuggex.com/r/9qo3gSnjd7ouz-Qm
       llc: /(\b)(llc\.*$)/i, //(wordbreak)(`inc` followed by 0+ periods at end of the string) https://www.debuggex.com/r/9qo3gSnjd7ouz-Qm
       special: /[^a-zA-Z0-9\s-]/ig, //anything that messes up the URL formatting
-      ddash: /-{2,}/, //double dash detection
+      ddash: /-{2,}/g, //double dash detection
+      dspace: /\s{2,}/g,
       spaces: /\s+/g
     };
   }
@@ -23,16 +23,22 @@ class Transformer {
     return string.trim();
   }
 
-  _obj(doc, fieldName, overwrite) {
-    console.warn('_obj() has not been implemented!');
+  _obj(doc, field, overwrite) {
+    let value = null;
+    if(typeof doc[field] === 'string'){
+      value = this._string(doc[field]);
+    }
+    if(value !== null){
+      this._appy(doc, field, overwrite, value);
+    }
     return doc;
   }
 
-  _apply(o, fieldName, overwrite, value) {
-    if (!fieldName) { //or fieldName = fieldName || "name"
+  _apply(o, field, overwrite, value) {
+    if (!field) { //or fieldName = fieldName || "name"
       throw 'fieldName was not defined!';
-    } else if (!o[fieldName] || overwrite) {
-      o[fieldName] = value;
+    } else if (!o[field] || overwrite) {
+      o[field] = value;
     }
     return o;
   }

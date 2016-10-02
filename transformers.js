@@ -1,5 +1,6 @@
 'use strict';
 
 module.exports = {
-  urn: require('./libs/urn')
+  urn: require('./libs/urn'),
+  cn: require('./libs/cleannames')
 };
