@@ -39,6 +39,7 @@ describe('trans', function () {
 
   it('CleanNames should clean names!', function () {
     cn.trans('BULL &amp; BEAR INC').should.equal('Bull & Bear Inc');
+    cn.trans('280 S 400 W').should.equal('280 S 400 W');
   });
 
   it('should clean strings', function () {

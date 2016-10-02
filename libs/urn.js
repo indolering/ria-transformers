@@ -44,13 +44,13 @@ class URN extends Transformer{
     let id = doc.id || doc._id || '';
 
     if(id){
-      let i = id.indexOf('_');  //'012_45' = 3
-
-      if(i > -1){
-        id = 'A' + id.slice(i + 1); //'45'
-      } else {
-        id = 'F' + id;
-      }
+      // let i = id.indexOf('_');  //'012_45' = 3
+      //
+      // if(i > -1){
+      //   id = 'A' + id.slice(i + 1); //'45'
+      // } else {
+      //   id = 'F' + id;
+      // }
 
       value = value + '-' + id;
     }
