@@ -22,7 +22,8 @@ class URN extends Transformer{
     //replace all spaces with '-'
     name = name.replace(this.regex.spaces, '-');
     name = name.replace(this.regex.ddash, '-'); //collapse double spaces caused by removing punctuation
-
+    name = name.replace(this.regex.endDash, '');
+    name = name.replace(this.regex.startDash, '');
     return name;
   }
 
@@ -31,7 +32,7 @@ class URN extends Transformer{
 
     let value = '';
 
-    if (doc.source_type === 'advisor' && doc.Info_firstlast) {
+    if (doc.source_type.toLowerCase() === 'advisor' && doc.Info_firstlast) {
       value = doc.Info_firstlast;
     } else if (doc.business_name) {
       value = doc.business_name;
