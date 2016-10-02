@@ -54,7 +54,7 @@ describe('trans', function () {
     urn.trans(doc);
 
     doc.should.have.key('urn');
-    doc.urn.should.equal('bull-and-bear-F123456');
+    doc.urn.should.equal('bull-and-bear-123456');
   });
 
   it('should not transform object', function () {
